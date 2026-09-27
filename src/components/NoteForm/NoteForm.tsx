@@ -3,13 +3,18 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./NoteForm.module.css";
 import { createNote } from "../../services/noteService";
-import type { NewNotePayload, NoteFormProps, NoteFormValues } from "../../types/note";
+import type { FormNotePayload } from "../../types/note";
 
-const initialValues: NoteFormValues = {
+const initialValues: FormNotePayload = {
   title: "",
   content: "",
   tag: "Todo",
 };
+
+export interface NoteFormProps {
+  onSubmit?: (values: FormNotePayload) => void;
+  onCancel: () => void;
+}
 
 const NoteSchema = Yup.object().shape({
   title: Yup.string()
@@ -33,7 +38,7 @@ export default function NoteForm({ onCancel }: NoteFormProps) {
     },
   });
 
-  const handleSubmit = (values: NewNotePayload) => {
+  const handleSubmit = (values: FormNotePayload) => {
     mutate(values);
   };
 

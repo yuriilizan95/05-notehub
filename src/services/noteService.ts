@@ -1,13 +1,21 @@
 import axios, { type AxiosResponse } from 'axios';
 import type { 
   Note, 
-  NewNotePayload, 
-  FetchNotesParams, 
-  FetchNotesResponse 
+  FormNotePayload 
 } from '../types/note';
 
 const NOTEHUB_TOKEN = import.meta.env.VITE_NOTEHUB_TOKEN
 
+ interface FetchNotesParams {
+  page?: number;
+  search?: string;
+  perPage?: number;
+}
+
+export interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
 
 const apiClient = axios.create({
     baseURL: 'https://notehub-public.goit.study/api',
@@ -30,19 +38,13 @@ export const fetchNotes = async (
   return response.data;
 };
 
-/**
- * Створення нової нотатки
- */
 export const createNote = async (
-  noteData: NewNotePayload
+  noteData: FormNotePayload
 ): Promise<Note> => {
   const response: AxiosResponse<Note> = await apiClient.post('/notes', noteData);
   return response.data;
 };
 
-/**
- * Видалення нотатки за її ID
- */
 export const deleteNote = async (
   id: string
 ): Promise<Note> => {

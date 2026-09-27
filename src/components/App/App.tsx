@@ -9,7 +9,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import css from "./App.module.css"
 import NoteList from '../NoteList/NoteList';
 import { fetchNotes } from '../../services/noteService';
-import type { FetchNotesResponse } from '../../types/note';
+import type { FetchNotesResponse } from '../../services/noteService';
 import Pagination from '../Pagination/Pagination';
 import { useDebounce } from 'use-debounce';
 import SearchBox from '../SearchBox/SearchBox';
